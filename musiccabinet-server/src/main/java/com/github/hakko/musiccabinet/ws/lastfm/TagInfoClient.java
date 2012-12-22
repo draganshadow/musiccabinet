@@ -26,6 +26,7 @@ public class TagInfoClient extends AbstractWSGetClient {
 		List<NameValuePair> params = getDefaultParameterList();
 		params.add(new BasicNameValuePair(PARAM_METHOD, METHOD));
 		params.add(new BasicNameValuePair(PARAM_TAG, tagName));
+		params.add(new BasicNameValuePair(PARAM_LANG, getLang()));
 		
 		return executeWSRequest(null, params);
 	}

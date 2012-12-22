@@ -23,6 +23,7 @@ public class AlbumInfoClient extends AbstractWSGetClient {
 		params.add(new BasicNameValuePair(PARAM_METHOD, METHOD));
 		params.add(new BasicNameValuePair(PARAM_ARTIST, album.getArtist().getName()));
 		params.add(new BasicNameValuePair(PARAM_ALBUM, album.getName()));
+		params.add(new BasicNameValuePair(PARAM_LANG, getLang()));
 		
 		return executeWSRequest(webserviceInvocation, params);
 	}

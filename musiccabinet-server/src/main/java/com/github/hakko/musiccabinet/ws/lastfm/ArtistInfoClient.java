@@ -22,6 +22,7 @@ public class ArtistInfoClient extends AbstractWSGetClient {
 		List<NameValuePair> params = getDefaultParameterList();
 		params.add(new BasicNameValuePair(PARAM_METHOD, METHOD));
 		params.add(new BasicNameValuePair(PARAM_ARTIST, artist.getName()));
+		params.add(new BasicNameValuePair(PARAM_LANG, getLang()));
 		
 		return executeWSRequest(webserviceInvocation, params);
 	}
