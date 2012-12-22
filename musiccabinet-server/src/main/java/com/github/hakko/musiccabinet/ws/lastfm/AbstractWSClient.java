@@ -33,12 +33,6 @@ public abstract class AbstractWSClient {
 	 */
 	protected HttpClient httpClient;
 
-	/**
-	 * Subsonic setting service to fetch lastfm setting
-	 * 	- Lang
-	 */
-	private PropertyPlaceholderConfigurer propertyConfigurer;
-	
 	public static final String PARAM_METHOD = "method";
 	public static final String PARAM_ARTIST = "artist";
 	public static final String PARAM_ALBUM = "album";
