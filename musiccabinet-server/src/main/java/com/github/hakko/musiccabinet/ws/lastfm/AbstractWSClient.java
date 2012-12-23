@@ -117,7 +117,7 @@ public abstract class AbstractWSClient {
 	}
 	
 	protected String getLang() {
-		return this.locale.getISO3Language();
+		return this.locale.getLanguage();
 	}
 
 	public Locale getLocale() {
