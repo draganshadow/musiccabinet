@@ -58,7 +58,7 @@ public class ArtistInfoService extends SearchIndexUpdateService {
 		
 		for (String artistName : artistNames) {
 			try {
-				WSResponse wsResponse = artistInfoClient.getArtistInfo(new Artist(artistName));
+				WSResponse wsResponse = artistInfoClient.getArtistInfo(new Artist(artistName), getLocale().getLanguage());
 				if (wsResponse.wasCallAllowed() && wsResponse.wasCallSuccessful()) {
 					StringUtil stringUtil = new StringUtil(wsResponse.getResponseBody());
 					ArtistInfoParser aiParser = 

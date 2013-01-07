@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -31,7 +32,7 @@ public abstract class AbstractWSClient {
 	 * Placed as class variable to allow for unit testing.
 	 */
 	protected HttpClient httpClient;
-	
+
 	public static final String PARAM_METHOD = "method";
 	public static final String PARAM_ARTIST = "artist";
 	public static final String PARAM_ALBUM = "album";
@@ -48,6 +49,7 @@ public abstract class AbstractWSClient {
 	public static final String PARAM_TOKEN = "token";
 	public static final String PARAM_API_SIG = "api_sig";
 	public static final String PARAM_SK = "sk";
+	public static final String PARAM_LANG = "lang";
 
 	/* API sec needed to generate md5 hash for signatures. */
 	private static final String API_SEC_RESOURCE = "last.fm/api.sec";
@@ -61,12 +63,15 @@ public abstract class AbstractWSClient {
 
 	protected static final Logger LOG = Logger.getLogger(AbstractWSClient.class);
 	
+	protected Locale locale;
+	
 	public AbstractWSClient() {
 		// default values for a production environment
 		httpClient = new DefaultHttpClient();
 		HttpParams params = httpClient.getParams();
 		HttpConnectionParams.setConnectionTimeout(params, TIMEOUT);
 		HttpConnectionParams.setSoTimeout(params, TIMEOUT);
+		locale = Locale.ENGLISH;
 	}
 
 	protected List<NameValuePair> getDefaultParameterList() {
@@ -111,10 +116,17 @@ public abstract class AbstractWSClient {
 		return httpClient;
 	}
 
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
+
 	// Spring setter(s)
 	
 	public void setHttpClient(HttpClient httpClient) {
 		this.httpClient = httpClient;
 	}
-
 }
