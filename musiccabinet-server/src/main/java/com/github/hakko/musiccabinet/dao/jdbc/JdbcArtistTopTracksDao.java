@@ -1,19 +1,17 @@
 package com.github.hakko.musiccabinet.dao.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.BatchSqlUpdate;
 
 import com.github.hakko.musiccabinet.dao.ArtistTopTracksDao;
 import com.github.hakko.musiccabinet.dao.jdbc.rowmapper.TrackRowMapper;
+import com.github.hakko.musiccabinet.dao.jdbc.rowmapper.TrackWithArtistRowMapper;
 import com.github.hakko.musiccabinet.domain.model.music.Artist;
 import com.github.hakko.musiccabinet.domain.model.music.Track;
 
@@ -67,26 +65,17 @@ public class JdbcArtistTopTracksDao implements ArtistTopTracksDao, JdbcTemplateD
 			+ " inner join music.track t on att.track_id = t.id"
 			+ " where a.id = ? order by att.rank";
 		
-		List<Track> topTracks = jdbcTemplate.query(sql, 
-				new Object[]{artistId}, new RowMapper<Track>() {
-			@Override
-			public Track mapRow(ResultSet rs, int rowNum)
-					throws SQLException {
-				String artistName = rs.getString(1);
-				String trackName = rs.getString(2);
-				return new Track(artistName, trackName);
-			}
-		});
-		
-		return topTracks;
+		return jdbcTemplate.query(sql, new Object[]{artistId}, 
+				new TrackWithArtistRowMapper());
 	}
 
 	@Override
 	public List<Track> getTopTracks(int artistId) {
-		String sql = "select coalesce(lt.id, -1), mt.track_name_capitalization"
+		String sql = "select coalesce(attpc.track_id, -1), mt.track_name_capitalization"
 				+ " from music.artisttoptrack att"
 				+ " inner join music.track mt on att.track_id = mt.id"
-				+ " left outer join library.track lt on att.track_id = lt.track_id"
+				+ " left outer join library.artisttoptrackplaycount attpc"
+				+ " on attpc.artist_id = att.artist_id and attpc.rank = att.rank"
 				+ " where att.artist_id = ? order by att.rank limit 20";
 		
 		return jdbcTemplate.query(sql, new Object[]{artistId}, new TrackRowMapper());

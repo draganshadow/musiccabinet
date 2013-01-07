@@ -69,6 +69,7 @@
 	<bean id="starService" class="com.github.hakko.musiccabinet.service.StarService">
 		<property name="lastFmDao" ref="lastFmDao"/>
 		<property name="starDao" ref="starDao"/>
+		<property name="musicDao" ref="musicDao"/>
 	</bean>
 
 	<bean id="lastFmService" class="com.github.hakko.musiccabinet.service.LastFmService">
@@ -252,6 +253,9 @@
 	
 	
 	<!--  LAST.FM WS CLIENTS -->
+	<bean id="trackLoveClient" class="com.github.hakko.musiccabinet.ws.lastfm.TrackLoveClient"/>
+	<bean id="trackUnLoveClient" class="com.github.hakko.musiccabinet.ws.lastfm.TrackUnLoveClient"/>
+
 	<bean id="updateNowPlayingClient" class="com.github.hakko.musiccabinet.ws.lastfm.UpdateNowPlayingClient"/>
 
 	<bean id="scrobbleClient" class="com.github.hakko.musiccabinet.ws.lastfm.ScrobbleClient"/>
@@ -465,9 +469,9 @@
 		<property name="testConnectionOnCheckout" value="true"/>
 		<property name="acquireRetryAttempts" value="1"/>
 
-		<property name="minPoolSize" value="25"/>
+		<property name="minPoolSize" value="15"/>
 		<property name="maxPoolSize" value="40"/>
-		<property name="initialPoolSize" value="25"/>
+		<property name="initialPoolSize" value="15"/>
 	</bean>
 
 	<bean id="initialDataSource" destroy-method="close"
