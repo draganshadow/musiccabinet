@@ -1,5 +1,7 @@
 package com.github.hakko.musiccabinet.service.lastfm;
 
+import java.util.Locale;
+
 import com.github.hakko.musiccabinet.domain.model.aggr.SearchIndexUpdateProgress;
 import com.github.hakko.musiccabinet.exception.ApplicationException;
 
@@ -14,8 +16,11 @@ public abstract class SearchIndexUpdateService {
 
 	private SearchIndexUpdateProgress progress;
 	
+	protected Locale locale;
+	
 	public SearchIndexUpdateService() {
 		progress = new SearchIndexUpdateProgress(getUpdateDescription());
+		locale = Locale.ENGLISH;
 	}
 	
 	/*
@@ -56,4 +61,12 @@ public abstract class SearchIndexUpdateService {
 	 */
 	protected abstract void updateSearchIndex() throws ApplicationException;
 
+	// Spring setter(s)
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public void setLocale(Locale locale) {
+		this.locale = locale;
+	}
 }

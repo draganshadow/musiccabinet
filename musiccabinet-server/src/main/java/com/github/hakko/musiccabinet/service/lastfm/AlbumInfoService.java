@@ -48,7 +48,7 @@ public class AlbumInfoService extends SearchIndexUpdateService {
 		
 		for (Album album : albums) {
 			try {
-				WSResponse wsResponse = albumInfoClient.getAlbumInfo(album);
+				WSResponse wsResponse = albumInfoClient.getAlbumInfo(album, getLocale().getLanguage());
 				if (wsResponse.wasCallAllowed() && wsResponse.wasCallSuccessful()) {
 					StringUtil stringUtil = new StringUtil(wsResponse.getResponseBody());
 					AlbumInfoParser aiParser = 

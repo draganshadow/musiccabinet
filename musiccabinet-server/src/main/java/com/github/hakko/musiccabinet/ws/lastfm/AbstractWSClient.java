@@ -115,10 +115,6 @@ public abstract class AbstractWSClient {
 	protected HttpClient getHttpClient() {
 		return httpClient;
 	}
-	
-	protected String getLang() {
-		return this.locale.getLanguage();
-	}
 
 	public Locale getLocale() {
 		return locale;

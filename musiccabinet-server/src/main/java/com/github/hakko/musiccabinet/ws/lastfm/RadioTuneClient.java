@@ -16,7 +16,6 @@ public class RadioTuneClient extends AbstractWSPostClient {
 		params.add(new BasicNameValuePair(PARAM_METHOD, METHOD));
 		params.add(new BasicNameValuePair("station", "lastfm://artist/cher/similarartists"));
 		params.add(new BasicNameValuePair(PARAM_SK, "5cd6b262eed1fcecc8752eb78eb1db78"));
-		params.add(new BasicNameValuePair(PARAM_LANG, getLang()));
 		
 		return executeWSRequest(params);
 	}

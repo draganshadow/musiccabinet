@@ -15,7 +15,7 @@ public class AlbumInfoClient extends AbstractWSGetClient {
 
 	public static final String METHOD = "album.getinfo";
 	
-	public WSResponse getAlbumInfo(Album album) throws ApplicationException {
+	public WSResponse getAlbumInfo(Album album, String lang) throws ApplicationException {
 		WebserviceInvocation webserviceInvocation = 
 			new WebserviceInvocation(ALBUM_GET_INFO, album);
 
@@ -23,9 +23,12 @@ public class AlbumInfoClient extends AbstractWSGetClient {
 		params.add(new BasicNameValuePair(PARAM_METHOD, METHOD));
 		params.add(new BasicNameValuePair(PARAM_ARTIST, album.getArtist().getName()));
 		params.add(new BasicNameValuePair(PARAM_ALBUM, album.getName()));
-		params.add(new BasicNameValuePair(PARAM_LANG, getLang()));
+		params.add(new BasicNameValuePair(PARAM_LANG, lang));
 		
 		return executeWSRequest(webserviceInvocation, params);
 	}
 	
+	public WSResponse getAlbumInfo(Album album) throws ApplicationException {
+		return this.getAlbumInfo(album, getLocale().getLanguage());
+	}
 }

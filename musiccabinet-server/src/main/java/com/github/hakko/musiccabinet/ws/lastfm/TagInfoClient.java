@@ -22,13 +22,16 @@ public class TagInfoClient extends AbstractWSGetClient {
 	 * log anything. It's OK because tag info is never updated, it's just called
 	 * once per tag.
 	 */
-	public WSResponse getTagInfo(String tagName) throws ApplicationException {
+	public WSResponse getTagInfo(String tagName, String lang) throws ApplicationException {
 		List<NameValuePair> params = getDefaultParameterList();
 		params.add(new BasicNameValuePair(PARAM_METHOD, METHOD));
 		params.add(new BasicNameValuePair(PARAM_TAG, tagName));
-		params.add(new BasicNameValuePair(PARAM_LANG, getLang()));
+		params.add(new BasicNameValuePair(PARAM_LANG, lang));
 		
 		return executeWSRequest(null, params);
 	}
 
+	public WSResponse getTagInfo(String tagName) throws ApplicationException {
+		return this.getTagInfo(tagName, getLocale().getLanguage());
+	}
 }
